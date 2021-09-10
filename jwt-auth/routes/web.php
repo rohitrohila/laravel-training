@@ -17,3 +17,13 @@ Route::get('/', function () {
     return 'welcome';
 });
 
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::post('/registerUser', [App\Http\Controllers\Auth\RegisterController::class, 'index'])->name('home');
+
+

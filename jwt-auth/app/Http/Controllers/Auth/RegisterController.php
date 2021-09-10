@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\api\Auth;
+namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
@@ -29,17 +30,16 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '';
-    protected $auth;
+    protected $redirectTo = RouteServiceProvider::HOME;
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct(JWTAuth $auth)
+    public function __construct()
     {
-        $this->auth = $auth;
+        // $this->middleware('guest');
     }
 
     /**
@@ -69,6 +69,16 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+        ]);
+    }
+    public function register(Request $request){
+       
+        /*return 'works'.$request['name'];*/
+        // return 'Hey';
+        return User::create([
+            'name' => $request['name'],
+            'email' => $request['email'],
+            'password' => Hash::make($request['password']),
         ]);
     }
 }
